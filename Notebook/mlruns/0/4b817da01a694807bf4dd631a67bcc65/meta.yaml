@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/elbet/OneDrive/Desktop/Ten/week8%269/github/Fraud_detection/Notebook/mlruns/0/4b817da01a694807bf4dd631a67bcc65/artifacts
+end_time: 1729514919333
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4b817da01a694807bf4dd631a67bcc65
+run_name: Random Forest
+run_uuid: 4b817da01a694807bf4dd631a67bcc65
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729514365990
+status: 3
+tags: []
+user_id: elbet

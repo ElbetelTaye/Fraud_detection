@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/elbet/OneDrive/Desktop/Ten/week8%269/github/Fraud_detection/Notebook/mlruns/0/8c929fc07a8f46788c30b4eb72cf5095/artifacts
+end_time: 1729758932527
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8c929fc07a8f46788c30b4eb72cf5095
+run_name: Decision Tree
+run_uuid: 8c929fc07a8f46788c30b4eb72cf5095
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729758932181
+status: 4
+tags: []
+user_id: elbet

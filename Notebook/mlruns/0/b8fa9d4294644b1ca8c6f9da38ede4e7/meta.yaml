@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/elbet/OneDrive/Desktop/Ten/week8%269/github/Fraud_detection/Notebook/mlruns/0/b8fa9d4294644b1ca8c6f9da38ede4e7/artifacts
+end_time: 1729543139481
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b8fa9d4294644b1ca8c6f9da38ede4e7
+run_name: Logistic Regression
+run_uuid: b8fa9d4294644b1ca8c6f9da38ede4e7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729543135741
+status: 3
+tags: []
+user_id: elbet

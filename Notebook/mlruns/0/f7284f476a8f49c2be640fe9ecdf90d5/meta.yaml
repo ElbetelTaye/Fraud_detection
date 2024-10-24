@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/elbet/OneDrive/Desktop/Ten/week8%269/github/Fraud_detection/Notebook/mlruns/0/f7284f476a8f49c2be640fe9ecdf90d5/artifacts
+end_time: 1729757474402
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f7284f476a8f49c2be640fe9ecdf90d5
+run_name: Gradient Boosting
+run_uuid: f7284f476a8f49c2be640fe9ecdf90d5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729756775378
+status: 3
+tags: []
+user_id: elbet

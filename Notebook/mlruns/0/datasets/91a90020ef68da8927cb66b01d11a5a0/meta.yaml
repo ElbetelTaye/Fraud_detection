@@ -1,0 +1,9 @@
+digest: cb2a2d32
+name: dataset
+profile: '{"features_shape": [211200, 32], "features_size": 6758400, "features_nbytes":
+  54067200}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float64\", \"shape\": [-1, 32]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "elbet", "mlflow.source.name": "c:\\Users\\elbet\\miniconda3\\envs\\elbetel\\lib\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code
