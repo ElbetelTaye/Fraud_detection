@@ -1,8 +1,0 @@
-digest: d59561bb
-name: dataset
-profile: '{"features_shape": [1, 32], "features_size": 32, "features_nbytes": 256}'
-schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
-  {\"dtype\": \"float64\", \"shape\": [-1, 32]}}]", "targets": null}}'
-source: '{"tags": {"mlflow.user": "elbet", "mlflow.source.name": "c:\\Users\\elbet\\miniconda3\\envs\\elbetel\\lib\\site-packages\\ipykernel_launcher.py",
-  "mlflow.source.type": "LOCAL"}}'
-source_type: code

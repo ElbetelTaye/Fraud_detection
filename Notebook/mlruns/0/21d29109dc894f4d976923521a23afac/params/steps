@@ -1,1 +1,0 @@
-[('standardscaler', StandardScaler(with_mean=False)), ('lassolarsic', LassoLarsIC())]
