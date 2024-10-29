@@ -1,7 +1,7 @@
 # Fraud Detection Project
 
 ## Project Overview
-This project involves analyzing and detecting fraudulent transactions using multiple datasets:
+This project involves analyzing and detecting fraudulent transactions from multiple datasets:
 - `Fraud_Data.csv` contains information about user transactions.
 - `Credit_Card_Transactions.csv` includes anonymized credit card transaction data.
 - `IpAddress_to_Country.csv` maps IP address ranges to their respective countries.
@@ -12,6 +12,10 @@ The main objective is to build a model that can identify fraudulent activities a
 - **Fraud Data**: Contains transaction details such as `user_id`, `signup_time`, `purchase_time`, `purchase_value`, `device_id`, `source`, `browser`, `sex`, `age`, `ip_address`, and `class` (target variable indicating fraud).
 - **Credit Card Transactions**: Contains anonymized features `v1` to `v8`, `Time`, `amount`, and `class` (target variable).
 - **IP Address to Country Mapping**: Contains `lower_bound_ip_address`, `upper_bound_ip_address`, and `country`.
+
+# Credit and Fraud Detection Model Explainability
+
+This repository contains code for training, saving, and interpreting machine learning models for credit scoring and fraud detection using explainability techniques like SHAP (SHapley Additive exPlanations) and LIME (Local Interpretable Model-agnostic Explanations). The project primarily focuses on evaluating deep learning models and traditional machine learning classifiers to enhance transparency and trust in model decisions.
 
 ## Project Structure
 ```
@@ -34,8 +38,15 @@ fraud-detection-project/
 │   ├── Credit_Card_Transactions.csv
 │   └── IpAddress_to_Country.csv
 │
+├── DL_saved_models/
+│
+├── saved_models/
+│
 ├── notebooks/
 │   ├── data_preprocessing.ipynb
+│   ├── ML_model_creaditcard_data.ipynb
+│   ├── ML_model_fraud_data.ipynb
+│   ├── model_Building_Training.ipynb   // DL models for both credit and fraud data
 │   └── __init__.py
 │
 ├── scripts/
@@ -52,14 +63,20 @@ fraud-detection-project/
 └── README.md
 ```
 
-## Tasks Overview
-1. **Handle Missing Values**: Impute missing values or drop them as necessary.
-2. **Data Cleaning**: Remove duplicates, correct data types, and ensure data integrity.
-3. **Exploratory Data Analysis (EDA)**: Perform univariate and bivariate analyses to gain insights into the data.
-4. **Merge Datasets**: Convert IP addresses to integer format and merge `Fraud_Data.csv` with `IpAddress_to_Country.csv` for geolocation analysis.
-5. **Feature Engineering**: Create features like transaction frequency, velocity, and time-based features such as `hour_of_day` and `day_of_week`.
-6. **Normalization and Scaling**: Normalize numerical features for better model performance.
-7. **Encode Categorical Features**: Convert categorical features into numerical formats for model training.
+## Notebook Overview
+
+### Model Loading and Data Preparation
+The notebook loads various pre-trained models (PyTorch and scikit-learn) for both credit scoring and fraud detection datasets. It also handles dataset preparation, removing irrelevant columns and performing train-test splits. The models are stored in a dictionary format for easy retrieval.
+
+### Explainability Analysis
+This section leverages SHAP and LIME libraries for explainability:
+1. **SHAP**: Applies SHAP explainability to traditional machine learning models and deep learning models separately. The `KernelExplainer` is used for general-purpose explainability. For each model, SHAP summary plots highlight feature importance, with a specific focus on interpreting the model's predictions for fraud detection and credit risk assessment.
+  
+2. **LIME**: The notebook generates LIME explanations for both traditional machine learning and deep learning models, providing instance-specific feature contributions. Each LIME analysis focuses on a single sample to demonstrate how specific feature values contribute to the prediction.
+
+### Explainability for PyTorch Models
+Custom functions are implemented to compute SHAP values for PyTorch models, accommodating neural network architectures. Additionally, LIME explanations are generated for these models with a custom prediction function to handle binary classification probabilities.
+
 
 ## Getting Started
 
@@ -92,25 +109,9 @@ fraud-detection-project/
    ```
 2. Open the notebooks in the `notebooks/` directory to explore each step, from data preprocessing to model training.
 
-### Data Preprocessing
-- Refer to `data_preprocessing.ipynb` for steps taken to clean the data, handle missing values, and perform data type conversions.
-
-### Exploratory Data Analysis (EDA)
-- `eda.ipynb` contains visualizations and statistical summaries for univariate and bivariate analyses.
-
-### Feature Engineering
-- Detailed steps to create new features are found in `feature_engineering.ipynb`.
-
 ## Results and Findings
 - Key insights about fraudulent behaviors and patterns in the data.
 - Impact of different features on the likelihood of fraud.
 
-## Future Work
-- Incorporate additional features.
-- Deploy the model using a web framework like FastAPI for real-time predictions.
-
 ## Contributing
 Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
