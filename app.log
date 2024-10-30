@@ -1,0 +1,36 @@
+2024-10-30 20:08:52,794 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:08:52,795 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:08:54,049 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-30 20:08:54,049 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-30 20:08:54,053 - INFO -  * Restarting with stat
+2024-10-30 20:08:58,331 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:08:58,331 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:08:59,031 - WARNING -  * Debugger is active!
+2024-10-30 20:08:59,041 - INFO -  * Debugger PIN: 950-061-802
+2024-10-30 20:10:40,710 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:10:40,710 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:10:41,388 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-30 20:10:41,389 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-30 20:10:41,392 - INFO -  * Restarting with stat
+2024-10-30 20:10:45,321 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:10:45,321 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:10:45,934 - WARNING -  * Debugger is active!
+2024-10-30 20:10:45,943 - INFO -  * Debugger PIN: 950-061-802
+2024-10-30 20:16:21,569 - INFO -  * Detected change in 'c:\\Users\\elbet\\OneDrive\\Desktop\\Ten\\week8&9\\github\\Fraud_detection\\model_api\\model_definitions.py', reloading
+2024-10-30 20:16:22,213 - INFO -  * Restarting with stat
+2024-10-30 20:28:01,250 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:28:01,250 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:28:37,181 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:28:37,181 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:31:13,849 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:31:13,850 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:31:46,826 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:31:46,827 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:37:22,775 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:37:22,775 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:37:39,478 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:37:39,478 - INFO - NumExpr defaulting to 8 threads.
+2024-10-30 20:38:10,582 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-30 20:38:10,583 - INFO - NumExpr defaulting to 8 threads.
