@@ -78,6 +78,24 @@ This section leverages SHAP and LIME libraries for explainability:
 Custom functions are implemented to compute SHAP values for PyTorch models, accommodating neural network architectures. Additionally, LIME explanations are generated for these models with a custom prediction function to handle binary classification probabilities.
 
 
+## Fraud and Credit Card Detection Model API
+
+A Flask API for serving and monitoring fraud and credit card detection models, deployed in a Docker container. This API allows users to submit data for predictions on two models:
+- **Fraud Detection Model** (Decision Tree model)
+- **Credit Card Detection Model** (RNN model)
+
+### Project Structure
+
+```
+model_api/
+├── models/
+│   ├── DecisionTree_Fraud.joblib        # Pre-trained fraud detection model
+│   └── RNN_Credit.pt                    # Pre-trained credit card model
+├── serve_model.py                       # Main Flask application
+├── requirements.txt                     # Python dependencies
+└── Dockerfile                           # Docker 
+```
+
 ## Getting Started
 
 ### Prerequisites
