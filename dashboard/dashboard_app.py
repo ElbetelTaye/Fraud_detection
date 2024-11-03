@@ -1,76 +1,142 @@
-from flask import Flask, jsonify, render_template
-import pandas as pd
-import requests
-from dash import Dash, dcc, html
-from dash.dependencies import Input, Output
+from dash import Dash, html, dcc
 import plotly.express as px
+import pandas as pd
+from flask import Flask
+from datetime import datetime
+import socket
+import struct
 
 # Initialize Flask app
-app = Flask(__name__)
-dash_app = Dash(
-    __name__,
-    server=app,
-    routes_pathname_prefix='/dashboard/',
-    external_stylesheets=['/static/css/styles.css']
-)
+server = Flask(__name__)
 
-# Load the dataset
-fraud_data = pd.read_csv('dashboard/data/merged_data.csv')
+# Initialize Dash app
+app = Dash(__name__, server=server)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Helper function to convert IP to integer
+def ip_to_int(ip):
+    try:
+        return struct.unpack("!I", socket.inet_aton(ip))[0]
+    except socket.error:
+        return None  # Handle invalid IPs gracefully
 
-@app.route('/data/summary')
-def data_summary():
-    total_transactions = len(fraud_data)
-    total_fraud = fraud_data['is_fraud'].sum()
-    fraud_percentage = (total_fraud / total_transactions) * 100
-    return jsonify({
-        'total_transactions': total_transactions,
-        'total_fraud': total_fraud,
-        'fraud_percentage': fraud_percentage
-    })
+# Load datasets
+def load_data():
+    fraud_data = pd.read_csv('C:/Users/elbet/OneDrive/Desktop/Ten/week8&9/github/Fraud_detection/Data/cleaned_data/Preprocessed_Fraud_Data.csv')
+    credit_data = pd.read_csv('C:/Users/elbet/OneDrive/Desktop/Ten/week8&9/github/Fraud_detection/Data/cleaned_data/Preprocessed_Creditcard_Data')
+    ip_country = pd.read_csv('C:/Users/elbet/OneDrive/Desktop/Ten/week8&9/github/Fraud_detection/Data/cleaned_data/Preprocessed_IpAddress_to_Country')
+    return fraud_data, credit_data, ip_country
 
-# Dashboard Layout
-dash_app.layout = html.Div([
-    html.H4("Fraud Detection Dashboard"),
+# Data processing functions
+def process_ecommerce_data(fraud_data, ip_country):
+    fraud_data_cleaned = fraud_data.copy()
+    ip_country_cleaned = ip_country.copy()
+
+    fraud_data_cleaned['signup_time'] = pd.to_datetime(fraud_data_cleaned['signup_time'])
+    fraud_data_cleaned['purchase_time'] = pd.to_datetime(fraud_data_cleaned['purchase_time'])
+    fraud_data_cleaned['purchase_day'] = fraud_data_cleaned['purchase_time'].dt.day_name()
+    fraud_data_cleaned['purchase_hour'] = fraud_data_cleaned['purchase_time'].dt.hour
+    fraud_data_cleaned['ip_int'] = fraud_data_cleaned['ip_address'].apply(lambda x: ip_to_int(str(int(x))) if pd.notna(x) else None)
     
+    ip_country_cleaned['lower_bound_ip_address'] = ip_country_cleaned['lower_bound_ip_address'].astype('int64')
+    ip_country_cleaned['upper_bound_ip_address'] = ip_country_cleaned['upper_bound_ip_address'].astype('int64')
+    fraud_data_cleaned['ip_int'] = fraud_data_cleaned['ip_int'].astype('int64')
+    
+    ip_country_cleaned.sort_values('lower_bound_ip_address', inplace=True)
+    fraud_data_with_country = pd.merge_asof(
+        fraud_data_cleaned.sort_values('ip_int'),
+        ip_country_cleaned[['lower_bound_ip_address', 'upper_bound_ip_address', 'country']],
+        left_on='ip_int',
+        right_on='lower_bound_ip_address',
+        direction='backward'
+    )
+    fraud_data_with_country = fraud_data_with_country[
+        (fraud_data_with_country['ip_int'] >= fraud_data_with_country['lower_bound_ip_address']) &
+        (fraud_data_with_country['ip_int'] <= fraud_data_with_country['upper_bound_ip_address'])
+    ]
+    fraud_data_with_country.drop(['lower_bound_ip_address', 'upper_bound_ip_address'], axis=1, inplace=True)
+    
+    return fraud_data_with_country
+
+def create_summary_stats(fraud_data, credit_data):
+    ecom_stats = {
+        'total_transactions': len(fraud_data),
+        'fraud_cases': fraud_data['class'].sum(),
+        'fraud_percentage': (fraud_data['class'].sum() / len(fraud_data) * 100).round(2)
+    }
+    credit_stats = {
+        'total_transactions': len(credit_data),
+        'fraud_cases': credit_data['Class'].sum(),
+        'fraud_percentage': (credit_data['Class'].sum() / len(credit_data) * 100).round(2)
+    }
+    return ecom_stats, credit_stats
+
+# Load and process data
+fraud_data, credit_data, ip_country = load_data()
+fraud_data_processed = process_ecommerce_data(fraud_data, ip_country)
+ecom_stats, credit_stats = create_summary_stats(fraud_data_processed, credit_data)
+
+# Create the dashboard layout
+app.layout = html.Div([
+    # Navigation bar
     html.Div([
-        html.Div(id='summary-stats', className='card')
-    ], className="graph-container"),
-    
-    dcc.Graph(id='line-chart'),
-    dcc.Graph(id='geo-map'),
-    dcc.Graph(id='device-browser-bar-chart'),
+        html.H1('Fraud Detection Dashboard', className='nav-title'),
+        html.P('fraud analytics and insights', className='nav-subtitle')
+    ], className='navbar'),
 
-    dcc.Interval(id='interval-component', interval=60*1000, n_intervals=0)
+    # Main content container
+    html.Div([
+        # Summary Statistics Cards
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.I(className='fas fa-shopping-cart stat-icon'),
+                    html.Div([
+                        html.H3('E-commerce Transactions'),
+                        html.Div([
+                            html.P([
+                                html.Span('Total Transactions: ', className='stat-label'),
+                                html.Span(f"{ecom_stats['total_transactions']:,}", className='stat-value')
+                            ]),
+                            html.P([
+                                html.Span('Fraud Cases: ', className='stat-label'),
+                                html.Span(f"{ecom_stats['fraud_cases']:,}", className='stat-value fraud-value')
+                            ]),
+                            html.P([
+                                html.Span('Fraud Percentage: ', className='stat-label'),
+                                html.Span(f"{ecom_stats['fraud_percentage']}%", className='stat-value fraud-value')
+                            ])
+                        ], className='stat-details')
+                    ])
+                ], className='stat-card')
+            ], className='col-md-6'),
+
+            html.Div([
+                html.Div([
+                    html.I(className='fas fa-credit-card stat-icon'),
+                    html.Div([
+                        html.H3('Credit Card Transactions'),
+                        html.Div([
+                            html.P([
+                                html.Span('Total Transactions: ', className='stat-label'),
+                                html.Span(f"{credit_stats['total_transactions']:,}", className='stat-value')
+                            ]),
+                            html.P([
+                                html.Span('Fraud Cases: ', className='stat-label'),
+                                html.Span(f"{credit_stats['fraud_cases']:,}", className='stat-value fraud-value')
+                            ]),
+                            html.P([
+                                html.Span('Fraud Percentage: ', className='stat-label'),
+                                html.Span(f"{credit_stats['fraud_percentage']}%", className='stat-value fraud-value')
+                            ])
+                        ], className='stat-details')
+                    ])
+                ], className='stat-card')
+            ], className='col-md-6')
+        ], className='row stats-container'),
+
+        # Other Sections like Charts can be included below...
+    ], className='main-content')
 ])
 
-# Callbacks for Dashboard
-@dash_app.callback(
-    Output('summary-stats', 'children'),
-    Input('interval-component', 'n_intervals')
-)
-def update_summary_stats(n):
-    response = requests.get('http://127.0.0.1:5000/data/summary').json()
-    return html.Div([
-        html.H4("Summary Statistics"),
-        html.P(f"Total Transactions: {response['total_transactions']}"),
-        html.P(f"Total Fraud Cases: {response['total_fraud']}"),
-        html.P(f"Fraud Percentage: {response['fraud_percentage']:.2f}%")
-    ])
-
-@dash_app.callback(
-    Output('line-chart', 'figure'),
-    Input('interval-component', 'n_intervals')
-)
-def update_line_chart(n):
-    trends = fraud_data.groupby('purchase_time')['is_fraud'].sum().reset_index()
-    fig = px.line(trends, x='purchase_time', y='is_fraud', title="Fraud Cases Over Time")
-    return fig
-
-# Add additional callbacks for geo-map and device-browser bar chart here
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run_server(host="0.0.0.0", port=8080, debug=False)
