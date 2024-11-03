@@ -3,4 +3,3 @@ cleaned_data/*
 saved_models/*
 Notebook/mlruns/*
 venv/*
-model_api/models/*

@@ -3,7 +3,7 @@ import torch
 import joblib
 import torch.nn.functional as F
 import numpy as np
-from model_definitions import CNNModel
+from model_definitions import RNNModel
 import logging
 
 # Initialize Flask app
@@ -16,14 +16,14 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-input_size = 100  # Define input size for the CNN model
+input_size = 194  # Define input size for the CNN model
 
 # Load the credit card fraud detection model
-creditcard_model = joblib.load('model_api/models/Random Forest.joblib')
+creditcard_model = joblib.load('model_api/models/Decision_Tree.joblib')
 
 # Initialize and load the CNN model for fraud detection
-fraud_model = CNNModel(input_size)
-fraud_model.load_state_dict(torch.load('model_api/models/CNN_Fraud.pt'))
+fraud_model = RNNModel(input_size)
+fraud_model.load_state_dict(torch.load('model_api/models/RNN_Fraud.pt'))
 fraud_model.eval()
 
 

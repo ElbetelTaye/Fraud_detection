@@ -34,3 +34,27 @@
 2024-10-30 20:37:39,478 - INFO - NumExpr defaulting to 8 threads.
 2024-10-30 20:38:10,582 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
 2024-10-30 20:38:10,583 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 15:45:52,917 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 15:45:52,917 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 15:52:01,296 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 15:52:01,297 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 15:53:06,824 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 15:53:06,824 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 15:53:22,976 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 15:53:22,976 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 15:54:53,119 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 15:54:53,120 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 16:14:51,344 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 16:14:51,344 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 16:17:43,559 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 16:17:43,559 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 16:18:24,883 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 16:18:24,883 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 16:18:25,666 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-03 16:18:25,666 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-03 16:18:25,668 - INFO -  * Restarting with stat
+2024-11-03 16:18:29,768 - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-03 16:18:29,768 - INFO - NumExpr defaulting to 8 threads.
+2024-11-03 16:18:30,340 - WARNING -  * Debugger is active!
+2024-11-03 16:18:30,347 - INFO -  * Debugger PIN: 950-061-802
