@@ -3,7 +3,7 @@ import torch
 import joblib
 import torch.nn.functional as F
 import numpy as np
-from model_definitions import CNNModel
+from model_definitions import RNNModel
 import logging
 
 # Initialize Flask app
@@ -16,20 +16,16 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-input_size = 100  
+input_size = 194  # Define input size for the CNN model
 
-# Load the fraud model
-creditcard_model = joblib.load('model_api/models/Random Forest.joblib')
+# Load the credit card fraud detection model
+creditcard_model = joblib.load('model_api/models/Decision_Tree.joblib')
 
-fraud_model = CNNModel(input_size)
-fraud_model.load_state_dict(torch.load('model_api/models/CNN_Fraud.pt'), strict=False)
-
+# Initialize and load the CNN model for fraud detection
+fraud_model = RNNModel(input_size)
+fraud_model.load_state_dict(torch.load('model_api/models/RNN_Fraud.pt'))
 fraud_model.eval()
 
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory('static', 'favicon.ico')
 
 @app.route('/')
 def home():
@@ -43,8 +39,8 @@ def predict_creditcard():
         features = np.array(data['features']).reshape(1, -1)
         prediction = creditcard_model.predict(features)
         
-        app.logger.info(f"credit prediction request received with data: {data}")
-        app.logger.info(f"credit prediction result: {prediction[0]}")
+        app.logger.info(f"Credit prediction request received with data: {data}")
+        app.logger.info(f"Credit prediction result: {prediction[0]}")
         
         return jsonify({'prediction': prediction[0]})
     except Exception as e:
@@ -57,12 +53,16 @@ def predict_fraud():
         data = request.json['data']
         input_tensor = torch.tensor(data, dtype=torch.float32)
         
+        # Reshape input if needed to match model's input expectations
+        if input_tensor.ndim == 1:
+            input_tensor = input_tensor.unsqueeze(0)  # Add batch dimension if missing
+        
         with torch.no_grad():
             output = fraud_model(input_tensor)
-            probabilities = torch.softmax(output, dim=1).numpy().tolist()
+            probabilities = F.softmax(output, dim=1).numpy().tolist()
         
-        app.logger.info(f"fraud prediction request received with data: {data}")
-        app.logger.info(f"fraud prediction probabilities: {probabilities}")
+        app.logger.info(f"Fraud prediction request received with data: {data}")
+        app.logger.info(f"Fraud prediction probabilities: {probabilities}")
         
         return jsonify({'fraud_predictions': probabilities})
     except Exception as e:
@@ -70,4 +70,4 @@ def predict_fraud():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)  # Corrected comment syntax
